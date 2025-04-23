@@ -1,0 +1,53 @@
+npm init -y
+npm install typescript -D
+npm install express
+npm install @type/express -D
+tsc --init
+npm install ts-node-dev -D
+npm install express-async-errors
+npm install cors
+npm install @types/cors -D
+npm install prisma
+npm install @prisma/client
+npx prisma init
+
+no src/routes configura as rotas:
+
+    import { Router, Request, Response, NextFunction } from 'express'
+
+    const router = Router()
+
+    router.get('/teste', (req: Request, res: Response) => {
+        return res.json({ ok: true })
+    })
+
+    export { router }
+
+
+no src/server configuramos o servidor:
+
+    import express, {Request, Response, NextFunction } from 'express'
+    import 'express-async-errors'
+    import cors from 'cors'
+    import { router } from './routes'
+
+    const server = express()
+
+    server.use(express.json())
+    server.use(cors())
+
+    server.use(router)
+
+    server.use((error: Error, req: Request, res: Response, next: NextFunction ) => {
+        if (error instanceof Error) {
+            return res.status(400).json({
+                error: error.message
+            })
+        }
+        return res.status(500).json({
+            status: 'error',
+            message: 'Internal server error.'
+        })
+    })
+
+    server.listen(4444, () => console.log('Rodando na porta 4444'))
