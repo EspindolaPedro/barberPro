@@ -18,8 +18,7 @@ class CreateHaircutService {
         if (!name && !price) {
             throw new Error();
         }
-               
-        
+                      
 
             const myHaircuts = await prismaClient.haircut.count({
                 where: {

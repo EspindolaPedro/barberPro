@@ -1,4 +1,4 @@
--- CreateTable
+
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -12,7 +12,6 @@ CREATE TABLE "users" (
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "subscriptions" (
     "id" TEXT NOT NULL,
     "status" TEXT NOT NULL,
@@ -24,7 +23,6 @@ CREATE TABLE "subscriptions" (
     CONSTRAINT "subscriptions_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "haircuts" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -37,7 +35,6 @@ CREATE TABLE "haircuts" (
     CONSTRAINT "haircuts_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "services" (
     "id" TEXT NOT NULL,
     "customer" TEXT NOT NULL,
@@ -49,17 +46,12 @@ CREATE TABLE "services" (
     CONSTRAINT "services_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
 CREATE UNIQUE INDEX "subscriptions_userID_key" ON "subscriptions"("userID");
 
--- AddForeignKey
 ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_userID_fkey" FOREIGN KEY ("userID") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- AddForeignKey
 ALTER TABLE "haircuts" ADD CONSTRAINT "haircuts_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- AddForeignKey
 ALTER TABLE "services" ADD CONSTRAINT "services_haircut_id_fkey" FOREIGN KEY ("haircut_id") REFERENCES "haircuts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- AddForeignKey
 ALTER TABLE "services" ADD CONSTRAINT "services_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
